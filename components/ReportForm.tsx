@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Teacher, Report, Criterion, CriterionType } from '../types';
-import { RATING_TO_PERCENTAGE, RATING_COLORS, PROGRESS_TO_PERCENTAGE } from '../constants';
-import { FileTextIcon, FilePdfIcon, PlusIcon, TrashIcon } from './Icons';
+import { Teacher, Report, Criterion, CriterionType } from '../types.ts';
+import { RATING_TO_PERCENTAGE, RATING_COLORS, PROGRESS_TO_PERCENTAGE } from '../constants.ts';
+import { FileTextIcon, FilePdfIcon, PlusIcon, TrashIcon } from './Icons.tsx';
 
 declare const jspdf: any;
 declare const html2canvas: any;

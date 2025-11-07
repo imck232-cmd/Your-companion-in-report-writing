@@ -1,7 +1,6 @@
-
 import React, { useState } from 'react';
-import { Teacher, Report } from '../types';
-import { PlusIcon, EditIcon, TrashIcon } from './Icons';
+import { Teacher, Report } from '../types.ts';
+import { PlusIcon, EditIcon, TrashIcon } from './Icons.tsx';
 
 interface TeacherManagerProps {
   teachers: Teacher[];

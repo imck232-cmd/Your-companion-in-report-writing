@@ -1,6 +1,5 @@
-
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { translations, Language } from '../i18n/locales';
+import { translations, Language } from '../i18n/locales.ts';
 
 interface LanguageContextType {
   language: Language;

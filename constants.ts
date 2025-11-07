@@ -1,5 +1,4 @@
-
-import { Criterion } from './types';
+import { Criterion } from './types.ts';
 
 export const INITIAL_TEACHERS: string[] = [
   "وجدان العزي", "محمد الدريهم", "عبد الرؤوف الوصابي", "فهمي الجرافي", "آية فاتق",

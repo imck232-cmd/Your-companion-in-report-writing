@@ -80,7 +80,8 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
       return t.exports.notRated;
   }
 
-  const getDisplayValue = (report: Report): string | JSX.Element => {
+  // FIX: Changed return type from 'string | JSX.Element' to 'React.ReactNode' to resolve 'Cannot find namespace 'JSX'' error.
+  const getDisplayValue = (report: Report): React.ReactNode => {
     if (filterType === 'criterion' && selectedId) {
       return getCriterionValue(report, selectedId);
     }

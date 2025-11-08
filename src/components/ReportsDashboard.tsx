@@ -80,12 +80,17 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
       return t.exports.notRated;
   }
 
-  const getDisplayValue = (report: Report) => {
+  const getDisplayValue = (report: Report): string | JSX.Element => {
     if (filterType === 'criterion' && selectedId) {
       return getCriterionValue(report, selectedId);
     }
     return <span className="text-teal-600">{report.totalPercentage.toFixed(1)}%</span>;
   };
+
+  const getPlainTextDisplayValue = (report: Report): string => {
+      const displayValueNode = getDisplayValue(report);
+      return typeof displayValueNode === 'string' ? displayValueNode : `${report.totalPercentage.toFixed(1)}%`;
+  }
 
   const generateTxt = (isForWhatsApp = false) => {
     let content = `${t.dashboard.title}\n`;
@@ -97,9 +102,7 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
       content += `----------------------------------------\n`;
       content += `${t.exports.teacher}: ${getTeacherName(report.teacherId)}\n`;
       content += `${t.exports.date}: ${new Date(report.date).toLocaleDateString()}\n`;
-      const displayValueNode = getDisplayValue(report);
-      const displayValue = React.isValidElement(displayValueNode) ? `${report.totalPercentage.toFixed(1)}%` : displayValueNode;
-      content += `${t.exports.rating}: ${displayValue}\n`;
+      content += `${t.exports.rating}: ${getPlainTextDisplayValue(report)}\n`;
     });
 
     content += `\n----------------------------------------\n`;
@@ -120,7 +123,7 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
   const generatePdf = () => {
     if (!tableRef.current) return;
     const { jsPDF } = jspdf;
-    html2canvas(tableRef.current, { scale: 2 }).then((canvas) => {
+    html2canvas(tableRef.current, { scale: 2 }).then((canvas: HTMLCanvasElement) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -138,13 +141,10 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
   const exportToXlsx = () => {
     const header = [t.exports.teacher, t.exports.date, t.dashboard.tableHeaderRating];
     const data = filteredReports.map(report => {
-        const displayValueNode = getDisplayValue(report);
-        // Fix typo in variable name
-        const displayValue = React.isValidElement(displayValueNode) ? `${report.totalPercentage.toFixed(1)}%` : displayValueNode;
         return [
             getTeacherName(report.teacherId),
             new Date(report.date).toLocaleDateString(),
-            displayValue
+            getPlainTextDisplayValue(report)
         ];
     });
 

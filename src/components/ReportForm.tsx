@@ -172,7 +172,7 @@ const ReportForm: React.FC<ReportFormProps> = ({
   const exportToPdf = () => {
     if (!reportContentRef.current) return;
     const { jsPDF } = jspdf;
-    html2canvas(reportContentRef.current, { scale: 2, useCORS: true }).then((canvas) => {
+    html2canvas(reportContentRef.current, { scale: 2, useCORS: true }).then((canvas: HTMLCanvasElement) => {
         const imgData = canvas.toDataURL('image/png');
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pdfWidth = pdf.internal.pageSize.getWidth();

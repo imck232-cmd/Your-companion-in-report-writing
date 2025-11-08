@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Teacher, Report } from '../types.ts';
-import { PlusIcon, EditIcon, TrashIcon } from './Icons.tsx';
-import { useLanguage } from '../contexts/LanguageContext.tsx';
+import { Teacher, Report } from '../types';
+import { PlusIcon, EditIcon, TrashIcon } from './Icons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface TeacherManagerProps {
   teachers: Teacher[];

@@ -1,13 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { Teacher, Report, Criterion, CriterionType } from '../types.ts';
-import { RATING_TO_PERCENTAGE, RATING_COLORS, PROGRESS_TO_PERCENTAGE } from '../constants.ts';
-import { FileTextIcon, FilePdfIcon, PlusIcon, TrashIcon, ExcelIcon, WhatsAppIcon } from './Icons.tsx';
-import { useLanguage } from '../contexts/LanguageContext.tsx';
-
-
-declare const jspdf: any;
-declare const html2canvas: any;
-declare const XLSX: any;
+import { Teacher, Report, Criterion, CriterionType } from '../types';
+import { RATING_TO_PERCENTAGE, RATING_COLORS } from '../constants';
+import { FileTextIcon, FilePdfIcon, PlusIcon, TrashIcon, ExcelIcon, WhatsAppIcon } from './Icons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ReportFormProps {
   teacher: Teacher;
@@ -22,7 +17,7 @@ interface ReportFormProps {
 const ReportForm: React.FC<ReportFormProps> = ({ 
     teacher, onSave, onCancel, existingReport, initialSchoolInfo, criteria, onCriteriaChange
 }) => {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
 
   const [reportData, setReportData] = useState<Omit<Report, 'id' | 'teacherId' | 'totalPercentage'>>(() => {
     const defaultSchoolInfo = {
@@ -205,10 +200,8 @@ const ReportForm: React.FC<ReportFormProps> = ({
 
     criteria.forEach(c => {
         const value = reportData.ratings[c.id] || t.exports.notRated;
-        let displayValue = value;
+        let displayValue: string | number = value;
         if(c.type === 'rating' && typeof value === 'number') displayValue = `${RATING_TO_PERCENTAGE[value]}%`;
-        // Fix: Ensure that displayValue is always a string before being pushed to the data array.
-        // The `data` array is inferred to hold string values, but displayValue could be a number here, causing a type error.
         data.push([c.label, String(displayValue)]);
     });
 

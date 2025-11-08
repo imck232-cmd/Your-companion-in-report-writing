@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Teacher, Report, Criterion } from './types.ts';
-import { INITIAL_TEACHERS, INITIAL_REPORT_CRITERIA } from './constants.ts';
-import TeacherManager from './components/TeacherManager.tsx';
-import ReportForm from './components/ReportForm.tsx';
-import ReportsDashboard from './components/ReportsDashboard.tsx';
-import Header from './components/Header.tsx';
-import Footer from './components/Footer.tsx';
-import { useLanguage } from './contexts/LanguageContext.tsx';
+import { Teacher, Report, Criterion } from './types';
+import { INITIAL_TEACHERS, INITIAL_REPORT_CRITERIA } from './constants';
+import TeacherManager from './components/TeacherManager';
+import ReportForm from './components/ReportForm';
+import ReportsDashboard from './components/ReportsDashboard';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { useLanguage } from './contexts/LanguageContext';
 
 type View = 'teacher_manager' | 'report_form' | 'reports_dashboard';
 

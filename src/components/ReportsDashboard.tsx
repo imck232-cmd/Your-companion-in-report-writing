@@ -1,12 +1,8 @@
 import React, { useState, useMemo, useRef } from 'react';
-import { Teacher, Report, Criterion } from '../types.ts';
-import { PROGRESS_TO_PERCENTAGE, RATING_TO_PERCENTAGE } from '../constants.ts';
-import { FilePdfIcon, FileTextIcon, ExcelIcon, WhatsAppIcon } from './Icons.tsx';
-import { useLanguage } from '../contexts/LanguageContext.tsx';
-
-declare const jspdf: any;
-declare const html2canvas: any;
-declare const XLSX: any;
+import { Teacher, Report, Criterion } from '../types';
+import { RATING_TO_PERCENTAGE } from '../constants';
+import { FilePdfIcon, FileTextIcon, ExcelIcon, WhatsAppIcon } from './Icons';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ReportsDashboardProps {
   teachers: Teacher[];
@@ -102,7 +98,7 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
       content += `${t.exports.teacher}: ${getTeacherName(report.teacherId)}\n`;
       content += `${t.exports.date}: ${new Date(report.date).toLocaleDateString()}\n`;
       const displayValueNode = getDisplayValue(report);
-      const displayValue = typeof displayValueNode === 'string' ? displayValueNode : `${report.totalPercentage.toFixed(1)}%`;
+      const displayValue = React.isValidElement(displayValueNode) ? `${report.totalPercentage.toFixed(1)}%` : displayValueNode;
       content += `${t.exports.rating}: ${displayValue}\n`;
     });
 
@@ -143,7 +139,8 @@ const ReportsDashboard: React.FC<ReportsDashboardProps> = ({ teachers, reports, 
     const header = [t.exports.teacher, t.exports.date, t.dashboard.tableHeaderRating];
     const data = filteredReports.map(report => {
         const displayValueNode = getDisplayValue(report);
-        const displayValue = typeof displayValueNode === 'string' ? displayValueNode : `${report.totalPercentage.toFixed(1)}%`;
+        // Fix typo in variable name
+        const displayValue = React.isValidElement(displayValueNode) ? `${report.totalPercentage.toFixed(1)}%` : displayValueNode;
         return [
             getTeacherName(report.teacherId),
             new Date(report.date).toLocaleDateString(),

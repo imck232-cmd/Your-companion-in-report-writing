@@ -1,6 +1,6 @@
 import React from 'react';
-import { useLanguage } from '../contexts/LanguageContext.tsx';
-import { WhatsAppIcon } from './Icons.tsx';
+import { useLanguage } from '../contexts/LanguageContext';
+import { WhatsAppIcon } from './Icons';
 
 const Footer: React.FC = () => {
   const { t } = useLanguage();
